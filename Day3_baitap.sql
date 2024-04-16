@@ -30,14 +30,14 @@ SELECT product_id FROM products
 WHERE low_fats = 'Y' AND recyclable = 'Y';
 __baitap10
 SELECT name FROM customer
-WHERE NOT id = 2;
+WHERE referee_id <> 2 OR referee_id IS NULL;
 __baitap11
-SELECT name, population, continent FROM world
-WHERE continent >= 3000000 AND population >= 25000000;
+SELECT name, population, area FROM world
+WHERE area >= 3000000 OR population >= 25000000;
 __baitap12
-SELECT viewer_id FROM views
-WHERE author_id >= 1
-ORDER BY viewer_id ASC
+SELECT distinct(author_id) AS id FROM views
+WHERE author_id = viewer_id
+ORDER BY author_id ASC;
 __baitap13
 SELECT part, assembly_step
 FROM parts_assembly
@@ -46,5 +46,5 @@ __baitap14
 SELECT * FROM lyft_drivers
 WHERE yearly_salary <= 30000 OR yearly_salary >= 70000;
 __baitap15
-SELECT advertising_channel FROM uber_advertising
+SELECT * FROM uber_advertising
 WHERE money_spent > 100000;
