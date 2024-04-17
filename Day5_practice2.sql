@@ -4,6 +4,8 @@ WHERE id%2 = 0;
 __Baitap2
 SELECT COUNT (CITY) - COUNT (DISTINCT CITY) FROM STATION
 __Baitap3
+SELECT CEILING(AVG(Salary)-AVG(REPLACE(Salary,'0',' ')))
+FROM EMPLOYEES
 __Baitap4
 SELECT
 ROUND(CAST(SUM(item_count*order_occurrences)/SUM(order_occurrences)
