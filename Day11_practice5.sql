@@ -102,3 +102,35 @@ ON b.film_id = c.film_id
 GROUP BY a.first_name, a.last_name
 ORDER BY so_luong DESC;
 __Question6
+SELECT count(*)
+FROM public.address AS a
+LEFT JOIN public.customer AS b
+ON a.address_id=b.address_id
+WHERE a.address_id IS NULL
+__QUestion7
+SELECT city.city,
+SUM(payment.amount) AS doanh_thu
+FROM public.city AS city
+INNER JOIN public.address AS address
+ON city.city_id=address.city_id
+INNER JOIN public.customer AS customer
+ON address.address_id=customer.address_id
+INNER JOIN public.payment AS payment
+ON customer.customer_id=payment.customer_id
+GROUP BY city.city
+ORDER BY SUM(payment.amount) DESC;
+__Question8
+SELECT city.city || ', ' || country.country AS city_country,
+SUM(payment.amount) AS doanh_thu
+FROM public.country AS country
+INNER JOIN public.city AS city
+ON country.country_id=city.country_id
+INNER JOIN public.address AS address
+ON city.city_id=address.city_id
+INNER JOIN public.customer AS customer
+ON address.address_id=customer.address_id
+INNER JOIN public.payment AS payment
+ON customer.customer_id=payment.customer_id
+GROUP BY city_country
+ORDER BY SUM(payment.amount) DESC;
+
