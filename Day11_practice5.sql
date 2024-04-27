@@ -25,32 +25,31 @@ INNER JOIN age_breakdown AS age
 ON activities.user_id = age.user_id 
 WHERE activities.activity_type IN ('send', 'open') 
 GROUP BY age.age_bucket;
-__Baitap4 (chạy vẫn sai)
-SELECT customers.customer_id, 
-COUNT(DISTINCT products.product_category) as unique_count
+__Baitap4 
+SELECT customers.customer_id
 FROM customer_contracts AS customers
 LEFT JOIN products 
 ON customers.product_id = products.product_id
 GROUP BY customers.customer_id
-__Baitap5 (chạy vẫn sai)
-SELECT emp.employee_id, emp.name,
-COUNT(emp.reports_to) AS so_luong,
-CEILING(AVG(mng.age)) AS avg_age
-FROM employees AS emp
-INNER JOIN employees AS mng
-ON emp.employee_id = mng.reports_to 
-WHERE mng.reports_to  IS NOT NULL
-GROUP BY emp.employee_id, emp.name
-ORDER BY emp.employee_id
-__Baitap6 (chạy vẫn sai)
+HAVING COUNT(DISTINCT products.product_category) = 3;
+__Baitap5 
+SELECT E1.employee_id,E1.name,
+COUNT(E2.employee_id) as reports_count,
+ROUND(avg(E2.age)) AS average_age 
+FROM Employees E1
+INNER JOIN Employees E2
+ON E1.employee_id = E2.reports_to
+GROUP BY E1.employee_id
+ORDER BY E1.employee_id;
+__Baitap6 
 SELECT P.product_name, 
-SUM(O.unit) AS so_luong
+SUM(O.unit) AS unit
 FROM Products AS P
 RIGHT JOIN Orders AS O
 ON P.product_id=O.product_id
 WHERE O.order_date BETWEEN '2020-02-01' AND '2020-02-29'
 GROUP BY P.product_name
-HAVING SUM(O.unit) >= 100
+HAVING SUM(O.unit) >= 100;
 __Baitap7
 SELECT a.page_id
 FROM pages AS a
@@ -106,7 +105,7 @@ SELECT count(*)
 FROM public.address AS a
 LEFT JOIN public.customer AS b
 ON a.address_id=b.address_id
-WHERE a.address_id IS NULL
+WHERE b.customer_id IS NULL;
 __QUestion7
 SELECT city.city,
 SUM(payment.amount) AS doanh_thu
